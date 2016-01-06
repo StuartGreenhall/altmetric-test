@@ -20,16 +20,3 @@ class Article
     "#{@author}, #{@title}, #{@issn}"
   end
 end
-
-counter = 0
-articles = Array.new()
-File.foreach("01-problem\\resources\\articles.csv") do | line |
-  articles << Article.new(line)
-  counter = counter + 1
-end
-
-articles.each do | article |
-  puts article
-end
-
-puts "Process #{counter} authors"
