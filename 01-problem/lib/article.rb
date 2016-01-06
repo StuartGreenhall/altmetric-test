@@ -1,3 +1,5 @@
+require_relative 'ensure'
+
 class Article
   attr_reader :doi, :title, :issn
 
@@ -5,15 +7,7 @@ class Article
     parts = string.split(",")
     @doi = parts[0]
     @title = parts[1]
-    @issn = ensureSeperator(parts[2])
-  end
-
-  def ensureSeperator(rawIssn)
-     if rawIssn.include?("-")
-       return rawIssn
-     else
-       return rawIssn.insert(4, "-")
-     end
+    @issn = Ensure.seperator(parts[2])
   end
 
   def to_s
