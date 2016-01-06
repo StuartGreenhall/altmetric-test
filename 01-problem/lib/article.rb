@@ -1,9 +1,9 @@
 class Article
-  attr_reader :author, :title, :issn
+  attr_reader :doi, :title, :issn
 
   def initialize(string)
     parts = string.split(",")
-    @author = parts[0]
+    @doi = parts[0]
     @title = parts[1]
     @issn = ensureSeperator(parts[2])
   end
@@ -17,6 +17,6 @@ class Article
   end
 
   def to_s
-    "#{@author}, #{@title}, #{@issn}"
+    "#{@doi}, #{@title}, #{@issn}"
   end
 end

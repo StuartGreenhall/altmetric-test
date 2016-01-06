@@ -1,9 +1,10 @@
 require './lib/article'
 
 counter = 0
-articles = Array.new()
+articles = Hash.new()
 File.foreach(".\\resources\\articles.csv") do | line |
-  articles << Article.new(line)
+  aArticle = Article.new(line)
+  articles[aArticle.issn] = aArticle 
   counter = counter + 1
 end
 
