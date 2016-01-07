@@ -4,35 +4,21 @@ require './lib/article'
 require './lib/journal'
 require './lib/combine'
 require './lib/output'
+require './lib/parser'
 
-def parse_article(articles)
-  return Proc.new do |line|
-    aArticle = Article.new(line)
-    articles << aArticle
-  end
+if ARGV.empty? || ARGV.length < 5
+   puts "\n\nError - No arguments supplied"
+   puts "Usage:"
+   puts "   ruby combine.rb --format json journals.csv articles.csv authors.json > full_articles.json"
+   puts " \n"
+   exit(-1)
+else
+  parse = Parser.new()
+  articles = parse.articles(ARGV[3])
+  journals = parse.journals(ARGV[2])
+  authors = parse.authors(ARGV[4])
+
+  combined = Combine.data(authors, articles, journals)
+
+  puts Output.data(combined, ARGV[1]);
 end
-
-def parse_journal(journals)
-  return Proc.new do |line|
-    aJournal = Journal.new(line)
-    journals[aJournal.issn] = aJournal
-  end
-end
-
-def parse_file(pathToFile, store)
-  #really want this to return a immutable collection
-  CSV.foreach(pathToFile) do | line |
-    store.call(line)
-  end
-end
-
-articles = Array.new()
-journals = Hash.new()
-
-parse_file(".\\resources\\articles.csv", parse_article(articles))
-parse_file(".\\resources\\journals.csv", parse_journal(journals))
-authors = JSON.parse(File.read(".\\resources\\authors.json"))
-
-combined = Combine.data(authors, articles, journals)
-
-puts Output.data(combined, "csv");

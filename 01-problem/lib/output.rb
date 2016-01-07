@@ -1,9 +1,17 @@
 class Output
+
+    # was thinking about using a hash to have the formatters logic in.
+    # @formatters = {
+    #   'csv' => self.to_csv,
+    #   'json' => self.to_json
+    # }
+    # @formatters.default = Output.to_csv
+
   def self.data(combinedData, format)
    if format == 'csv'
       self.to_csv(combinedData)
    else
-     to_json(combinedData)
+      self.to_json(combinedData)
    end
   end
 
@@ -23,7 +31,6 @@ class Output
   end
 
   def self.to_json(data)
-
+    return JSON.pretty_generate(data)
   end
-
 end
