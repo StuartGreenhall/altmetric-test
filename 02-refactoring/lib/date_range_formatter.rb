@@ -9,9 +9,15 @@ class DateRangeFormatter
     @end_time = end_time
   end
 
+  def are_on_same_day
+    @start_date == @end_date
+  end
+
   def to_s
     full_start_date = @start_date.strftime("#{@start_date.day.ordinalize} %B %Y")
     full_end_date = @end_date.strftime("#{@end_date.day.ordinalize} %B %Y")
+
+    # are dates on the same day
 
     if @start_date == @end_date
       if @start_time && @end_time
@@ -23,7 +29,7 @@ class DateRangeFormatter
       else
         full_start_date
       end
-    elsif @start_date.month == @end_date.month
+    elsif @start_date.month == @end_date.month && @start_date.year == @end_date.year
       if @start_time && @end_time
         "#{full_start_date} at #{@start_time} - #{full_end_date} at #{@end_time}"
       elsif @start_time
@@ -56,4 +62,3 @@ class DateRangeFormatter
     end
   end
 end
-
