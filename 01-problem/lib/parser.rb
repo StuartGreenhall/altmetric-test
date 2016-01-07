@@ -1,3 +1,6 @@
+require 'json'
+require 'csv'
+
 class Parser
 
   def articles(pathToArticles)

@@ -1,5 +1,3 @@
-require 'json'
-require 'csv'
 require './lib/article'
 require './lib/journal'
 require './lib/combine'
