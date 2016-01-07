@@ -10,12 +10,16 @@ class Output
   def self.to_csv(data)
     outputString = ''
     data.each do | item |
-      item.values.each do | value |
-        outputString << ',' + value
+      item.values.each_with_index do | value, index |
+        if(index == 0)
+          outputString << value
+        else
+          outputString << ',' + value
+        end
       end
       outputString << "\n"
     end
-    outputString
+    return outputString
   end
 
   def self.to_json(data)

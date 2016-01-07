@@ -20,7 +20,7 @@ def parse_journal(journals)
 end
 
 def parse_file(pathToFile, store)
-  #really want this an immutable collection
+  #really want this to return a immutable collection
   CSV.foreach(pathToFile) do | line |
     store.call(line)
   end
